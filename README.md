@@ -41,26 +41,28 @@ The VBD requirements pin `transformers==4.56.2`, `tokenizers==0.22.1`, and `torc
 
 Run commands from the repository root.
 
+The examples below use the paper's default learning rates: `0.1` for attention-head experiments and `0.5` for MLP-neuron experiments. They also set `lambda1=lambda2=0.05`, the middle of the `[0, 0.1]` lambda range described in the paper. Change `--lambda1` and `--lambda2` when running a sweep.
+
 ```bash
-python train_attention_winogender.py --model gpt2 --device cuda
-python train_attention_winobias.py --split dev --model gpt2 --device cuda
+python train_attention_winogender.py --model gpt2 --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
+python train_attention_winobias.py --split dev --model gpt2 --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
 ```
 
 ```bash
-python train_attention_winogender_qwen.py --device cuda
-python train_attention_winobias_qwen.py --split dev --device cuda
+python train_attention_winogender_qwen.py --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
+python train_attention_winobias_qwen.py --split dev --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
 ```
 
 ```bash
-python train_attention_winogender_llama.py --device cuda
-python train_attention_winobias_llama.py --split dev --device cuda
+python train_attention_winogender_llama.py --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
+python train_attention_winobias_llama.py --split dev --device cuda --lr 0.1 --lambda1 0.05 --lambda2 0.05
 ```
 
 ```bash
-python train_mlp.py --model gpt2 --device cuda
-python train_mlp_qwen.py --device cuda
-python train_mlp_llama.py --device cuda
-python train_factual.py --model distilgpt2 --device cuda
+python train_mlp.py --model gpt2 --device cuda --lr 0.5 --lambda1 0.05 --lambda2 0.05
+python train_mlp_qwen.py --device cuda --lr 0.5 --lambda1 0.05 --lambda2 0.05
+python train_mlp_llama.py --device cuda --lr 0.5 --lambda1 0.05 --lambda2 0.05
+python train_factual.py --model distilgpt2 --device cuda --lr 0.5 --lambda1 0.05 --lambda2 0.05
 ```
 
 The Qwen scripts default to `Qwen/Qwen3-1.7B-Base`, and the Llama scripts default to `unsloth/Llama-3.2-1B`. Use `--model_name` to choose a different Hugging Face model ID or a local model path. Use `--cache_dir` only if you want to point Transformers to a specific local cache.
