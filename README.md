@@ -1,10 +1,30 @@
-# Multi-Component Causal Tracing
+# Multi-component Causal Tracing in Large Language Models
 
-This repository contains the runnable code for the proposed PGB-CT experiments from the paper. It keeps the original training-script style while removing plotting-only code, old machine-specific paths, proxy settings, baseline-only files, and unused cleanup artifacts.
+<p align="center">
+  <img src="https://img.shields.io/badge/ACL-2026-purple" alt="ACL 2026">
+  <img src="https://img.shields.io/badge/Python-3.9%2B-blue" alt="Python 3.9+">
+  <img src="https://img.shields.io/badge/PyTorch-2.5%2B-ee4c2c" alt="PyTorch">
+  <img src="https://img.shields.io/badge/Transformers-4.51.x-yellow" alt="Transformers 4.51.x">
+</p>
 
-There are no YAML configs. Experiments are configured through command-line arguments in the training scripts.
+This repository contains the runnable code for the paper **"Multi-component Causal Tracing in Large Language Models"**. The paper introduces **Penalized Gradient-Based Causal Tracing (PGB-CT)**, a method for identifying sparse sets of model components, such as attention heads and MLP neurons, that jointly drive target behaviors such as accuracy, factual associations, and gender-bias metrics.
 
-## Contents
+## ✨ Overview
+
+PGB-CT replaces discrete component search with a continuous mask optimized by gradient descent. The learned mask is regularized for sparsity and binarization, then truncated into a binary intervention set.
+
+<p align="center">
+  <img src="assets/method_overview.png" width="850" alt="PGB-CT method overview">
+</p>
+
+The included experiments cover attention-head tracing, MLP-neuron tracing, CounterFact factual edits, and the Variable Binding Desiderata setting. The two examples below show the main-paper GPT-2 small results on WinoBias.
+
+<p align="center">
+  <img src="assets/winobias_gpt2_attention_curve.png" width="410" alt="GPT-2 small WinoBias attention-head curve">
+  <img src="assets/winobias_gpt2_attention_selection.png" width="410" alt="GPT-2 small WinoBias selected attention heads">
+</p>
+
+## 🗂️ Repository Structure
 
 - `train_attention_winogender.py`, `train_attention_winobias.py`: GPT-2 attention-head PGB-CT experiments.
 - `train_attention_winogender_qwen.py`, `train_attention_winobias_qwen.py`: Qwen attention experiments.
@@ -17,7 +37,9 @@ There are no YAML configs. Experiments are configured through command-line argum
 - `data/`: datasets used by the included experiments.
 - `results/`: empty output folder; generated checkpoints and logs are ignored by git.
 
-## Setup
+There are no YAML configs. Experiments are configured through command-line arguments in the training scripts. Plot generation and baseline-only scripts are intentionally excluded from the final code folder.
+
+## ⚙️ Setup
 
 Use Python 3.9 or newer.
 
@@ -35,9 +57,9 @@ conda activate vbd
 pip install -r binding/requirements-vbd.txt
 ```
 
-The VBD requirements pin `transformers==4.56.2`, `tokenizers==0.22.1`, and `torch==2.8.0`, matching the working VBD environment. Do not replace this with the main `requirements.txt` environment unless you retest `binding/variable_binding.py`: older Transformers versions may not load newer Llama-family models cleanly, while later major/minor releases can change model internals used by activation patching.
+The VBD requirements pin `transformers==4.56.2`, `tokenizers==0.22.1`, and `torch==2.8.0`, matching the working VBD environment. Do not replace this with the main `requirements.txt` environment unless you retest `binding/variable_binding.py`: older Transformers versions may not load newer Llama-family models cleanly, while later minor releases can change model internals used by activation patching.
 
-## Running
+## 🚀 Running
 
 Run commands from the repository root.
 
@@ -75,7 +97,7 @@ VBD_MODEL_PATH=/path/to/llama-model python -m binding.variable_binding
 
 Run VBD from the repository root. `VBD_MODEL_PATH` should point to a local or Hugging Face Llama-style model whose modules match the paths used in `binding/variable_binding.py`, such as `model.layers.{i}.self_attn.o_proj` and `model.layers.{i}.mlp`. The script uses CUDA when available and loads the model in half precision, so running it on CPU is expected to be slow.
 
-## Outputs
+## 📦 Outputs
 
 Each training script writes under `results/`, including:
 
@@ -86,13 +108,11 @@ Each training script writes under `results/`, including:
 - `output/sparsities.npy`: NumPy array of logged sparsity percentages.
 - `ckpt/z_step_*.pt`: saved mask-parameter checkpoints.
 
-Plot generation was removed from the final code folder.
-
-## Acknowledgements
+## 🙏 Acknowledgements
 
 This repository builds on prior causal tracing and circuit discovery code. We thank the authors of [sebastianGehrmann/CausalMediationAnalysis](https://github.com/sebastianGehrmann/CausalMediationAnalysis) and [Nix07/binding-circuit-discovery](https://github.com/Nix07/binding-circuit-discovery) for making their implementations available.
 
-## Citation
+## 📚 Citation
 
 ```bibtex
 @inproceedings{yan2026multi,
