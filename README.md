@@ -79,11 +79,28 @@ Run VBD from the repository root. `VBD_MODEL_PATH` should point to a local or Hu
 
 Each training script writes under `results/`, including:
 
-- `output/args.txt`
-- `output/log.csv`
-- `output/evaluate.csv`
-- `output/losses.npy`
-- `output/sparsities.npy`
-- `ckpt/z_step_*.pt`
+- `output/args.txt`: command-line arguments and hyperparameters used for the run.
+- `output/log.csv`: logged training metrics, including running objective value, loss, sparsity, non-zero count, and binary-violation term.
+- `output/evaluate.csv`: epoch-level evaluation metrics for the truncated binary mask.
+- `output/losses.npy`: NumPy array of logged training losses.
+- `output/sparsities.npy`: NumPy array of logged sparsity percentages.
+- `ckpt/z_step_*.pt`: saved mask-parameter checkpoints.
 
 Plot generation was removed from the final code folder.
+
+## Acknowledgements
+
+This repository builds on prior causal tracing and circuit discovery code. We thank the authors of [sebastianGehrmann/CausalMediationAnalysis](https://github.com/sebastianGehrmann/CausalMediationAnalysis) and [Nix07/binding-circuit-discovery](https://github.com/Nix07/binding-circuit-discovery) for making their implementations available.
+
+## Citation
+
+```bibtex
+@inproceedings{yan2026multi,
+  title={Multi-component Causal Tracing in Large Language Models},
+  author={Yan, Zirui and Wei, Dennis and Katz, Dmitriy A. and Sattigeri, Prasanna and Tajer, Ali},
+  booktitle={Proc. Annual Meeting of the Association for Computational Linguistics},
+  year={2026},
+  month={July},
+  address={San Diego, CA}
+}
+```
