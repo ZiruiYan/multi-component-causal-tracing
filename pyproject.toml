@@ -1,0 +1,20 @@
+[project]
+name = "multi-component-causal-tracing"
+version = "0.1.0"
+description = "Code for multi-component causal tracing experiments."
+requires-python = ">=3.9"
+dependencies = [
+  "numpy==2.0.2",
+  "pandas==2.2.3",
+  "torch>=2.5.1,<2.7",
+  "tqdm==4.67.1",
+  "transformers>=4.51,<4.52",
+  "tokenizers==0.21.0",
+  "huggingface-hub>=0.30,<0.31",
+  "safetensors==0.5.2",
+  "sentencepiece>=0.2",
+  "protobuf>=4.25",
+]
+
+[tool.setuptools]
+py-modules = []

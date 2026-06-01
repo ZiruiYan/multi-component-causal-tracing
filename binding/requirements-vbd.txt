@@ -1,0 +1,11 @@
+# VBD-only environment. Keep this separate from the main experiment environment.
+numpy==2.0.2
+torch==2.8.0
+tqdm==4.67.1
+transformers==4.56.2
+tokenizers==0.22.1
+huggingface-hub==0.35.1
+safetensors==0.6.2
+sentencepiece==0.2.1
+protobuf>=4.25
+baukit @ git+https://github.com/davidbau/baukit.git@9d51abd51ebf29769aecc38c4cbef459b731a36e
